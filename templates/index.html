@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projet SRI</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+    <i class="fas fa-moon"></i>
+  </button>
+
+  <div class="container">
+    <header class="header">
+      <h1 class="title">Projet SRI</h1>
+     
+    </header>
+
+    <div class="form-card">
+      <form id="userInputForm">
+        <h2><center>Symptoms & Diseases </center></h2>
+        <div class="form-group">
+          <label for="description">Write your Query:</label>
+          <input type="text" id="description" name="description" placeholder="Describe your symptoms..." required>
+        </div>
+        <button type="submit" id="submitBtn"><i class="fas fa-search"></i> Find Recommendations</button>
+      </form>
+    </div>
+
+    <div class="loader hidden" id="loadingIcon"></div>
+    <div id="result-container" class="results-container hidden">
+      <h2 class="results-title">Similar Symptoms</h2>
+      <div id="did-you-mean" class="did-you-mean"></div>
+      <div id="results" class="results"></div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("userInputForm").addEventListener("submit", async function(event) {
+      event.preventDefault();
+      
+      const query = document.getElementById("description").value;
+      const submitBtn = document.getElementById("submitBtn");
+      const loadingIcon = document.getElementById("loadingIcon");
+      const resultContainer = document.getElementById("result-container");
+      const results = document.getElementById("results");
+      const didYouMean = document.getElementById("did-you-mean");
+
+      // Show loading state
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Searching...';
+      loadingIcon.classList.remove("hidden");
+      results.innerHTML = "";
+      didYouMean.innerHTML = "";
+
+      try {
+        const response = await fetch('/process_user_input', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ query: query })
+        });
+
+        const data = await response.json();
+
+        if (data.did_you_mean) {
+          didYouMean.innerHTML = `
+            <p>
+              Did you mean <span class="green">${data.did_you_mean.suggestion}</span>?<br>
+              Showing results for <span class="green">${data.did_you_mean.suggestion}</span>
+              instead of <span class="red">${data.did_you_mean.original}</span>.
+            </p>
+          `;
+        }
+
+        results.innerHTML = data.results;
+        resultContainer.classList.remove("hidden");
+
+      } catch (error) {
+        console.error("Error:", error);
+        results.innerHTML = "<p>An error occurred. Please try again later.</p>";
+        resultContainer.classList.remove("hidden");
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-search"></i> Find Recommendations';
+        loadingIcon.classList.add("hidden");
+      }
+    });
+
+    function toggleTheme() {
+      document.body.classList.toggle('dark-mode');
+      const icon = document.querySelector(".theme-toggle i");
+      icon.classList.toggle('fa-moon');
+      icon.classList.toggle('fa-sun');
+    }
+  </script>
+</body>
+</html>
