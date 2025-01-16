@@ -2,7 +2,8 @@ from modules.similarity import *
 import time
 import pandas as pd
 
-indexmap = getIndexMap()
+# indexmap = getIndexMap()
+indexmap= makeIndex()
 
 def get_document_info(csv_file, doc_ids):
     if isinstance(doc_ids, dict):
