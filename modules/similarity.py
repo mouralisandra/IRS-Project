@@ -24,7 +24,7 @@ def calculate_document_term_weights(indexmap, token_list):
             # Term Frequency (TF): Logarithmic scaling of term frequency in the document/query
             tf = 1 + math.log(count_string_occurrences(token, token_list), 10)
             # Inverse Document Frequency (IDF): Logarithmic scaling of how rare the term is across documents
-            idf = math.log(total_doc / (len(indexmap.get(token)) ), 10) 
+            idf = math.log(total_doc / (len(indexmap.get(token, {})) +0.1), 10) 
             # TF-IDF weight: Combines TF and IDF to represent term importance
             term_weights[token] = tf * idf
 
@@ -47,7 +47,7 @@ def calculate_query_term_weights(query_weights, indexmap):
     for token in query_weights:
         if token in indexmap:
             # IDF for the term: Logarithmic scaling of how rare the term is across documents
-            idf = math.log(total_doc / (len(indexmap.get(token, {})) ), 10)
+            idf = math.log(total_doc / (len(indexmap.get(token, {})) +0.1), 10)
             for doc_id in indexmap[token]:
                 # TF for the term in the document: Logarithmic scaling of term frequency
                 tf = 1 + math.log(indexmap[token][doc_id], 10)
@@ -104,4 +104,4 @@ def calculate_cosine_similarity(query_weights, document_weights):
     
 
     # Sort documents by similarity scores in descending order
-    return dict(sorted(similarity_scores.items(), key=lambda item: item[1], reverse=False))
+    return dict(sorted(similarity_scores.items(), key=lambda item: item[1], reverse=True))
