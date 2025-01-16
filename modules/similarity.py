@@ -26,7 +26,7 @@ def calculate_document_term_weights(indexmap, token_list):
             # Inverse Document Frequency (IDF): Logarithmic scaling of how rare the term is across documents
             idf = math.log(total_doc / (len(indexmap.get(token)) + 1), 10) 
             # TF-IDF weight: Combines TF and IDF to represent term importance
-            term_weights[token] = tf * idf + random.uniform(0, 0.1)
+            term_weights[token] = tf * idf
 
     return term_weights
 
@@ -53,7 +53,7 @@ def calculate_query_term_weights(query_weights, indexmap):
                 tf = 1 + math.log(indexmap[token][doc_id], 10)
                 # TF-IDF weight for the term in the document
                 document_weights.setdefault(doc_id, {})
-                document_weights[doc_id][token] = tf * idf + random.uniform(0, 0.1)
+                document_weights[doc_id][token] = tf * idf 
 
     return document_weights
 
