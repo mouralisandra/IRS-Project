@@ -21,6 +21,7 @@ def process_user_input():
     query = data.get("query", "")
     page_no = 1
 
+    # correct spelling eg. "diabets" -> "diabetes"
     corrected_query = correct_spelling(query)
     did_you_mean = None
 
