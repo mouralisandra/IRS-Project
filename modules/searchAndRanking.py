@@ -36,7 +36,7 @@ def searchAndRank(query):
 
     top_10 = dict(list(sim.items())[:n])
 
-    csv_file_path_main = 'data/main.csv'
+    csv_file_path_main = 'data/mainn.csv'
     doc_info_dict = get_document_info(csv_file_path_main, top_10)
 
     results_table = "<table border='1'><tr><th>Rank</th><th>ID</th><th>Disease</th><th>Similarity Score</th><th>Similar Symptoms</th></tr>Execution time : <span class=green> " + str(

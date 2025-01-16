@@ -3,7 +3,7 @@ import re
 import pandas as pd
 
 inverted_index = defaultdict(dict)
-data = pd.read_csv('data/main.csv')
+data = pd.read_csv('data/mainn.csv')
 tokenindex = []
 total_doc = len(data)
 
