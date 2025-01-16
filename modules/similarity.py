@@ -1,9 +1,8 @@
 import numpy as np
 import math
+import random
 from modules.preprocessingAndIndexing import *
 
-
-#modele ttc
 
 def calculate_document_term_weights(indexmap, token_list):
     """
@@ -25,9 +24,9 @@ def calculate_document_term_weights(indexmap, token_list):
             # Term Frequency (TF): Logarithmic scaling of term frequency in the document/query
             tf = 1 + math.log(count_string_occurrences(token, token_list), 10)
             # Inverse Document Frequency (IDF): Logarithmic scaling of how rare the term is across documents
-            idf = math.log(total_doc / (len(indexmap.get(token, {})) + 1), 10)
+            idf = math.log(total_doc / (len(indexmap.get(token)) + 1), 10) 
             # TF-IDF weight: Combines TF and IDF to represent term importance
-            term_weights[token] = tf * idf
+            term_weights[token] = tf * idf + random.uniform(0, 0.1)
 
     return term_weights
 
@@ -54,7 +53,7 @@ def calculate_query_term_weights(query_weights, indexmap):
                 tf = 1 + math.log(indexmap[token][doc_id], 10)
                 # TF-IDF weight for the term in the document
                 document_weights.setdefault(doc_id, {})
-                document_weights[doc_id][token] = tf * idf
+                document_weights[doc_id][token] = tf * idf + random.uniform(0, 0.1)
 
     return document_weights
 
@@ -101,7 +100,8 @@ def calculate_cosine_similarity(query_weights, document_weights):
             query_vector = np.array([query_weights[term] for term in common_terms])
             doc_vector = np.array([doc_vector[term] for term in common_terms])
             # Cosine similarity: Dot product of vectors divided by the product of their magnitudes
-            similarity_scores[doc_id] = np.dot(doc_vector, query_vector) / (doc_magnitude * query_magnitude)
+            similarity_scores[doc_id] = np.dot(doc_vector, query_vector) / (doc_magnitude *query_magnitude) 
+    
 
     # Sort documents by similarity scores in descending order
-    return dict(sorted(similarity_scores.items(), key=lambda item: item[1], reverse=True))
+    return dict(sorted(similarity_scores.items(), key=lambda item: item[1], reverse=False))

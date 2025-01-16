@@ -2,7 +2,7 @@ from modules.similarity import *
 import time
 import pandas as pd
 
-indexmap = makeIndex()
+indexmap = getIndexMap()
 
 def get_document_info(csv_file, doc_ids):
     if isinstance(doc_ids, dict):
@@ -27,12 +27,12 @@ def searchQuery(query):
     return sim
 
 
-def searchAndRank(query, pageNo):
+def searchAndRank(query):
     start_time = time.time()
     sim = searchQuery(query)
     end_time = time.time()
 
-    n= 5
+    n= 10
 
     top_10 = dict(list(sim.items())[:n])
 
@@ -43,7 +43,7 @@ def searchAndRank(query, pageNo):
         round(
             end_time - start_time, 5)) + " sec</span"
 
-    for rank, (doc_id, similarity_score) in enumerate(top_10.items(), start=1 + 1):
+    for rank, (doc_id, similarity_score) in enumerate(top_10.items(), start=0 + 1):
         doc_info = doc_info_dict.get(
             doc_id, ("N/A", "N/A"))
         doc_name, doc_description = doc_info

@@ -386,4 +386,31 @@ def makeIndex():
 
     return indexmap
 
+from collections import defaultdict
+import re
+
+def getIndexMap():
+    indexmap = defaultdict(dict)
+
+    with open("index.txt", "r") as file:
+        for line in file:
+            line = line.strip()
+            if not line:  # Skip empty lines
+                continue
+            
+            try:
+                # Split the term and its document mappings
+                term, doc_data = line.split(" -> ")
+                term = term.strip()
+                
+                # Extract document ID and term frequency (tf) pairs
+                doc_pairs = re.findall(r'\((\d+), (\d+)\)', doc_data)
+                for doc_id, tf in doc_pairs:
+                    indexmap[term][int(doc_id)] = int(tf)
+            except ValueError:
+                print(f"Skipping malformed line: {line}")
+
+    return indexmap
+
+
 

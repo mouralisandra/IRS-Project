@@ -19,7 +19,6 @@ def index():
 def process_user_input():
     data = request.json
     query = data.get("query", "")
-    page_no = 1
 
     # correct spelling eg. "diabets" -> "diabetes"
     corrected_query = correct_spelling(query)
@@ -30,9 +29,9 @@ def process_user_input():
             "suggestion": corrected_query,
             "original": query
         }
-        search_results_table, _ = searchAndRank(corrected_query, page_no)
+        search_results_table, _ = searchAndRank(corrected_query)
     else:
-        search_results_table, _ = searchAndRank(query, page_no)
+        search_results_table, _ = searchAndRank(query)
 
     return jsonify({
         "results": search_results_table,
