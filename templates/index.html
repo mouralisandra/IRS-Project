@@ -15,16 +15,72 @@
   <div class="container">
     <header class="header">
       <h1 class="title">Projet SRI</h1>
-     
     </header>
 
     <div class="form-card">
       <form id="userInputForm">
-        <h2><center>Symptoms & Diseases </center></h2>
+        <h2><center>Symptoms & Diseases</center></h2>
         <div class="form-group">
           <label for="description">Write your Query:</label>
           <input type="text" id="description" name="description" placeholder="Describe your symptoms..." required>
         </div>
+
+        <!-- Dropdown for tf_choice_q -->
+        <div class="form-group">
+          <label for="tf_choice_q">Choose Query TF:</label>
+          <select id="tf_choice_q" name="tf_choice_q">
+            <option value="l">Option L</option>
+            <option value="n">Option N</option>
+          </select>
+        </div>
+
+        <!-- Dropdown for idf_choice_q -->
+        <div class="form-group">
+          <label for="idf_choice_q">Choose Query IDF:</label>
+          <select id="idf_choice_q" name="idf_choice_q">
+            <option value="t">Option T</option>
+            <option value="n">Option N</option>
+            <option value="p">Option P</option>
+          </select>
+        </div>
+
+        <!-- Dropdown for tf_choice_d -->
+        <div class="form-group">
+          <label for="tf_choice_d">Choose Document TF:</label>
+          <select id="tf_choice_d" name="tf_choice_d">
+            <option value="l">Option L</option>
+            <option value="n">Option N</option>
+          </select>
+        </div>
+
+        <!-- Dropdown for idf_choice_d -->
+        <div class="form-group">
+          <label for="idf_choice_d">Choose Document IDF:</label>
+          <select id="idf_choice_d" name="idf_choice_d">
+            <option value="t">Option T</option>
+            <option value="n">Option N</option>
+            <option value="p">Option P</option>
+          </select>
+        </div>
+
+        <!-- Dropdown for norm_choice_q (Query Normalization) -->
+        <div class="form-group">
+          <label for="norm_choice_q">Choose Query Normalization:</label>
+          <select id="norm_choice_q" name="norm_choice_q">
+            <option value="n">Option N</option>
+            <option value="c">Option C</option>
+          </select>
+        </div>
+
+        <!-- Dropdown for norm_choice_d (Document Normalization) -->
+        <div class="form-group">
+          <label for="norm_choice_d">Choose Document Normalization:</label>
+          <select id="norm_choice_d" name="norm_choice_d">
+            <option value="n">Option N</option>
+            <option value="c">Option C</option>
+          </select>
+        </div>
+
         <button type="submit" id="submitBtn"><i class="fas fa-search"></i> Find Recommendations</button>
       </form>
     </div>
@@ -40,13 +96,22 @@
   <script>
     document.getElementById("userInputForm").addEventListener("submit", async function(event) {
       event.preventDefault();
-      
+
       const query = document.getElementById("description").value;
+      const tf_choice_q = document.getElementById("tf_choice_q").value;
+      const idf_choice_q = document.getElementById("idf_choice_q").value;
+      const tf_choice_d = document.getElementById("tf_choice_d").value;
+      const idf_choice_d = document.getElementById("idf_choice_d").value;
+      const norm_choice_q = document.getElementById("norm_choice_q").value;
+      const norm_choice_d = document.getElementById("norm_choice_d").value;
+
       const submitBtn = document.getElementById("submitBtn");
       const loadingIcon = document.getElementById("loadingIcon");
       const resultContainer = document.getElementById("result-container");
       const results = document.getElementById("results");
       const didYouMean = document.getElementById("did-you-mean");
+
+      const n = 10;  // Default number of results
 
       // Show loading state
       submitBtn.disabled = true;
@@ -61,18 +126,26 @@
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ query: query })
+          body: JSON.stringify({
+            query: query,
+            n: n,
+            tf_choice_q: tf_choice_q,
+            idf_choice_q: idf_choice_q,
+            tf_choice_d: tf_choice_d,
+            idf_choice_d: idf_choice_d,
+            norm_choice_q: norm_choice_q,
+            norm_choice_d: norm_choice_d
+          })
         });
 
         const data = await response.json();
-          console.log(data)
 
         if (data.did_you_mean) {
           didYouMean.innerHTML = `
             <p>
               Did you mean <span class="green">${data.did_you_mean.suggestion}</span>?<br>
               Showing results for <span class="green">${data.did_you_mean.suggestion}</span>
-              instead of <span class="red">${data.did_you_mean.original}</span>.
+              instead of <span class="red">${data.did_you_mean.original}</span>.<br>
             </p>
           `;
         }

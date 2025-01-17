@@ -1,7 +1,14 @@
 from collections import defaultdict
 import re
 import pandas as pd
+import nltk
 
+nltk.download('stopwords')
+nltk.download('wordnet')
+from nltk.corpus import stopwords
+from nltk.stem import WordNetLemmatizer
+lemmatizer = WordNetLemmatizer()
+stop_words = set(stopwords.words('english'))
 inverted_index = defaultdict(dict)
 data = pd.read_csv('data/mainn.csv')
 tokenindex = []
@@ -12,13 +19,11 @@ def load_stop_words(file_path):
         stop_words = set(word.strip() for word in file)
     return stop_words
 
-stop_words = load_stop_words('stopwords.txt')
-
 def preProcess(pattern):
     w = tokenize_without_numbers(pattern)
-    w2 = removal_of_stop_words(w, stop_words)
-    w3 = stemming(w2)
-    return w3
+    w2 = removal_of_stop_words(w)
+    # w3 = stemming(w2)
+    return w2
 
 
 def tokenize_without_numbers(text):
@@ -27,8 +32,32 @@ def tokenize_without_numbers(text):
     tokens = re.findall(pattern, text)
     return [token.lower() for token in tokens]
 
-def removal_of_stop_words(words, stop_words):
-    return [w for w in words if w.lower() not in stop_words]
+def removal_of_stop_words(words):
+    return [word for word in words if word not in stop_words]
+
+def count_string_occurrences(string, array_of_strings):
+    return array_of_strings.count(string)
+
+def makeIndex():
+    indexmap = defaultdict(dict)  
+    terms = set()  
+    
+    for doc_id, row in data.iterrows():
+        document = str(row['Description'])
+        title_terms = preProcess(str(row['Title']))
+        predoc = preProcess(document)
+        tokenindex.append(predoc)
+        terms.update(predoc)
+        for term in set(predoc):
+            tf = count_string_occurrences(term, predoc)
+            indexmap[term][doc_id] = tf
+
+    with open("index.txt", "w") as file:
+        for term, doc_dict in indexmap.items():
+            file.write(f"{term} -> {', '.join(f'({doc_id}, {tf})' for doc_id, tf in doc_dict.items())}\n")
+
+    return indexmap
+
 
 stemming_rules = [
     ("sses", "ss"),
@@ -362,55 +391,29 @@ def stemming(all_words):
         stemmed_word.append(w)
     return stemmed_word
 
-def count_string_occurrences(string, array_of_strings):
-    return array_of_strings.count(string)
 
-def makeIndex():
-    indexmap = defaultdict(dict)  
-    terms = set()  
-    
-    for doc_id, row in data.iterrows():
-        document = str(row['Description'])
-        title_terms = preProcess(str(row['Title']))
-        predoc = preProcess(document)
-        tokenindex.append(predoc)
-        terms.update(predoc + title_terms)
+# def getIndexMap():
+#     indexmap = defaultdict(dict)
 
-        for term in set(predoc + title_terms):
-            tf = count_string_occurrences(term, predoc + title_terms)
-            indexmap[term][doc_id] = tf
-
-    with open("index.txt", "w") as file:
-        for term, doc_dict in indexmap.items():
-            file.write(f"{term} -> {', '.join(f'({doc_id}, {tf})' for doc_id, tf in doc_dict.items())}\n")
-
-    return indexmap
-
-from collections import defaultdict
-import re
-
-def getIndexMap():
-    indexmap = defaultdict(dict)
-
-    with open("index.txt", "r") as file:
-        for line in file:
-            line = line.strip()
-            if not line:  # Skip empty lines
-                continue
+#     with open("index.txt", "r") as file:
+#         for line in file:
+#             line = line.strip()
+#             if not line:  # Skip empty lines
+#                 continue
             
-            try:
-                # Split the term and its document mappings
-                term, doc_data = line.split(" -> ")
-                term = term.strip()
+#             try:
+#                 # Split the term and its document mappings
+#                 term, doc_data = line.split(" -> ")
+#                 term = term.strip()
                 
-                # Extract document ID and term frequency (tf) pairs
-                doc_pairs = re.findall(r'\((\d+), (\d+)\)', doc_data)
-                for doc_id, tf in doc_pairs:
-                    indexmap[term][int(doc_id)] = int(tf)
-            except ValueError:
-                print(f"Skipping malformed line: {line}")
+#                 # Extract document ID and term frequency (tf) pairs
+#                 doc_pairs = re.findall(r'\((\d+), (\d+)\)', doc_data)
+#                 for doc_id, tf in doc_pairs:
+#                     indexmap[term][int(doc_id)] = int(tf)
+#             except ValueError:
+#                 print(f"Skipping malformed line: {line}")
 
-    return indexmap
+#     return indexmap
 
 
 
