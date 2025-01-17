@@ -1,5 +1,4 @@
 ID,Title,Description
-1,Psoriasis,"I have been experiencing a skin rash on my arms, legs, and torso for the past few weeks. It is red, itchy, and covered in dry, scaly patches."
 2,Psoriasis,"My skin has been peeling, especially on my knees, elbows, and scalp. This peeling is often accompanied by a burning or stinging sensation."
 3,Psoriasis,"I have been experiencing joint pain in my fingers, wrists, and knees. The pain is often achy and throbbing, and it gets worse when I move my joints."
 4,Psoriasis,"There is a silver like dusting on my skin, especially on my lower back and scalp. This dusting is made up of small scales that flake off easily when I scratch them."
@@ -75,7 +74,7 @@ ID,Title,Description
 74,Varicose Veins,"As I am overweight, I have noticed that my legs are swollen and the blood vessels are more visible than usual. The swelling seems to be getting worse over time."
 75,Varicose Veins,The veins on my calves are very prominent and are causing me a lot of discomforts. They are swollen and protrude from my skin.
 76,Varicose Veins,"The skin around the veins on my legs is red, inflamed, and itchy. It is causing a lot of discomforts and I am starting to get regular cramps."
-77,Varicose Veins,Standing or walking for long periods of time has been causing a lot of pain in my legs. It feels like a cramp and becomes worse the longer I am on my feet.
+77,Varicose Veins,Standing or walking for long periods of time has been causing a lot of pain in my legs. It feels like a cramp and becomes worse the longer I am on my feet feet.
 78,Varicose Veins,The cramps in my calves have been making it difficult for me to walk and do my daily activities. They come on suddenly and last for several minutes.
 79,Varicose Veins,The swelling in my legs has gotten worse over the past few weeks and is causing me difficulty fitting into my shoes. It is also causing discomfort when I sit for long periods of time.
 80,Varicose Veins,"The veins on my legs are very noticeable and are causing me a lot of discomforts. They are swollen and protrude from my skin, making them visible through my clothing."
@@ -95,7 +94,7 @@ ID,Title,Description
 94,Varicose Veins,The blood vessels on my legs are quite visible and give me a lot of pain. They're large and protrude from my skin. It is unusual and I am worried about it.
 95,Varicose Veins,"I have noticed that the blood vessels in my legs are getting more noticeable than usual. It is a little concerning to me. Moreover, I am experiencing cramps every day."
 96,Varicose Veins,My legs' swelling has become worse over the last couple of days. I can see the blood vessels protruding out of the skin. This is quite unusual.
-97,Varicose Veins,Long durations of standing or walking have caused severe discomfort in my legs. It's a burning ache that gets worse the longer I'm on my feet.
+97,Varicose Veins,Long durations of standing or walking have caused severe discomfort in my legs. It's a burning ache that gets worse the longer I'm on my feet feet.
 98,Varicose Veins,"My legs' skin around the veins is unusual. There appears to be a large bruise. Nowadays, I get frequent cramps when I sprint or run."
 99,Varicose Veins,"I am experiencing too many cramps in the last couple of days. I think something is not right. I believe there is a small bruise on my calves, but I am not sure about it."
 100,Varicose Veins,"The veins in my calves are protruding out quite unusually. I am worried about it. Also, I am overweight and I believe this is the reason behind all of this."
@@ -667,7 +666,7 @@ ID,Title,Description
 666,Hypertension,"My balance has been off, and I have a headache, chest pain, and dizziness. I've also observed that it's hard for me to concentrate."
 667,Hypertension,"I've been experiencing balance issues, chest pain, headaches, and pains. I've been having trouble focusing as well."
 668,Hypertension,"I have been experiencing chest pain, dizziness, and a headache that feels like a continual pressure in my forehead."
-669,Hypertension,"I have been feeling lightheaded and unsteady on my feet, and have also noticed a decline in my ability to focus and concentrate."
+669,Hypertension,"I have been feeling lightheaded and unsteady on my feet feet, and have also noticed a decline in my ability to focus and concentrate."
 670,Hypertension,"I've been experiencing dizziness and shakiness, as well as a loss in my attention span and ability to concentrate."
 671,Hypertension,"I've been experiencing dizziness and anxiousness, as well as a loss in my attention and concentration and ability to concentrate."
 672,Hypertension,"I've had intense aches in my chest, a headache that won't go away, and I've been feeling dizzy and unsteady."
@@ -682,8 +681,8 @@ ID,Title,Description
 681,Hypertension,"Along with a chest pain and dizziness, I've had a headache that seems like a sharp pain in my forehead."
 682,Hypertension,"I have been feeling fine all day, but suddenly developed a headache, chest pain, and dizziness while out for a walk. It's been hard for me to focus and concentrate since then."
 683,Hypertension,"While taking a walk, I suddenly started experiencing headache, chest pain, and dizziness after feeling fine all day. Since then, it has been challenging for me to concentrate and focus."
-684,Hypertension,"I woke up this morning with a headache and chest pain, and as the day has gone on, I've also been feeling dizzy and unsteady on my feet"
-685,Hypertension,"I had a headache and chest pain this morning, and as the day wore on, I also started to feel unsteady and unstable on my feet."
+684,Hypertension,"I woke up this morning with a headache and chest pain, and as the day has gone on, I've also been feeling dizzy and unsteady on my feet feet"
+685,Hypertension,"I had a headache and chest pain this morning, and as the day wore on, I also started to feel unsteady and unstable on my feet feet."
 686,Hypertension,"I have been dealing with a headache and chest pain for a few days now, but today the dizziness and loss of balance became much worse."
 687,Hypertension,"For a few days now, I've been suffering from a headache and chest pain, but today the dizziness and lack of balance got considerably worse."
 688,Hypertension,"I was at work when I started feeling a headache, chest pain, and dizziness. It's been hard for me to concentrate and focus on my tasks since then."
@@ -1060,7 +1059,7 @@ ID,Title,Description
 1059,drug reaction,I am experiencing changes in my menstrual cycle and unexpected vaginal discharge. I often get mood swings and feel agitated from time to time
 1060,drug reaction,I have experinenced significant weight gain and become very obese. I have changes in my appetite and cravings for different foods
 1061,drug reaction,I have difficulty in maintianing concentration and very low mental clarity. I often forget things and in general have difficulty remembering things
-1062,drug reaction,"In addition to experiencing a change in taste and fragrance, I also have a metallic aftertaste in my tongue. occasionally get excruciating joint and muscular pain"
+1062,drug reaction,"In addition to experiencing a change in taste and fragrance, I also have a metallic aftertaste in my tongue tongue. occasionally get excruciating joint and muscular pain"
 1063,drug reaction,"I suffer migraines and headaches, and I've been having trouble falling asleep. My muscles have been trembling and twitching. I sometimes feel dizzy."
 1064,drug reaction,"I'm feeling really lightheaded and dizzy when I have a temperature. My mind is completely muddled, and my heart is racing. I find it difficult to think clearly, and everything seems quite hazy."
 1065,drug reaction,"My skin occasionally peels off the rashes that I have. This makes me more vulnerable to infections. My hands begin to shake, and occasionally I have tremors."
@@ -1071,7 +1070,7 @@ ID,Title,Description
 1070,drug reaction,"My monthly cycle has changed, and I've had an unexpected vaginal discharge. I frequently experience mood swings and experience occasional agitation."
 1071,drug reaction,"I've gained a lot of weight and am now quite fat. My appetite varies, and I have desires for various things."
 1072,drug reaction,"I struggle to maintain focus, and my mental clarity is really poor. I have trouble remembering things and frequently forget stuff."
-1073,drug reaction,My tongue also has a metallic aftertaste in addition to a change in taste and scent. occasionally get acute muscle and joint ache
+1073,drug reaction,My tongue tongue also has a metallic aftertaste in addition to a change in taste and scent. occasionally get acute muscle and joint ache
 1074,drug reaction,"I have headaches and migraines, and I have been having difficulties sleeping. My entire body has been shaking and twitching. Sometimes I become lightheaded."
 1075,drug reaction,"When I have a fever, I feel quite woozy and lightheaded. My heart is pounding, and my head is absolutely foggy. My ability to think properly is impaired, and everything appears to be somewhat blurry."
 1076,drug reaction,"My rashes occasionally cause my skin to peel off. I'm more susceptible to illnesses as a result. I start to tremble sometimes, and my hands start to shake."
@@ -1082,7 +1081,7 @@ ID,Title,Description
 1081,drug reaction,"I've noticed a difference in my monthly cycle and an unexpected vaginal discharge. I become irritable every now and again, and my moods swing a lot."
 1082,drug reaction,I have put on a lot of weight and am now very obese. I have different urges and different appetites.
 1083,drug reaction,I have terrible mental clarity and find it difficult to stay focused. I regularly forget things and have problems remembering things.
-1084,drug reaction,"Along with a change in taste and smell, my tongue also has a metallic aftertaste. occasionally get severe joint and muscular pain"
+1084,drug reaction,"Along with a change in taste and smell, my tongue tongue tongue also has a metallic aftertaste. occasionally get severe joint and muscular pain"
 1085,drug reaction,"I suffer migraines and headaches, and I've been having trouble falling asleep. My whole body has been trembling and shivering. At times, I have dizziness."
 1086,drug reaction,"I am quite queasy and dizzy when I have a temperature. My brain is completely cloudy, and my heart is racing. I'm having trouble thinking straight, and everything seems a little fuzzy."
 1087,drug reaction,"Sometimes my skin starts to flake off from my rashes. I'm more prone to becoming sick as a result. On occasion, my hands begin to quiver and I begin to tremble."
@@ -1093,7 +1092,7 @@ ID,Title,Description
 1092,drug reaction,"My monthly cycle has changed, and I've had an unexpected vaginal discharge. I occasionally lose my temper, and my moods change a lot."
 1093,drug reaction,I've gained a lot of weight and am currently quite fat. I have many inclinations and cravings.
 1094,drug reaction,I have awful mental clarity and have trouble focusing. I frequently forget things and struggle with memory.
-1095,drug reaction,"My tongue also changes in taste and scent, leaving a metallic aftertaste. can have excruciating joint and muscle pain"
+1095,drug reaction,"My tongue tongue tongue also changes in taste and scent, leaving a metallic aftertaste. can have excruciating joint and muscle pain"
 1096,drug reaction,"I have headaches and migraines, and I have been having difficulties sleeping. I've been shaking and shivering all over. Sometimes I become lightheaded."
 1097,drug reaction,"When I have a temperature, I feel pretty nauseous and lightheaded. My heart is pounding, and my mind is absolutely foggy. Everything feels a little hazy to me, and I'm having difficulties thinking clearly."
 1098,drug reaction,"My rashes occasionally cause my skin to start to fall off. I'm more likely to get ill as a result. My hands occasionally start to tremble, and I start to shake."

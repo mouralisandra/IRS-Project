@@ -1,114 +1,78 @@
 import numpy as np
-import math
 from modules.preprocessingAndIndexing import *
+from modules.tfidf import TF_FORMULAS, IDF_FORMULAS, NORM_FORMULAS
 
-# TF Formula Definitions:
-def tf_n(count):
-    return count
-def tf_l(count):
-    return 1 + math.log(count) if count > 0 else 0
-
-# IDF Formula Definitions:
-def idf_n(N, df):
-    return 1
-
-def idf_t(N, df):
-    return math.log(N / df) if df > 0 else 0
-
-def idf_p(N, df):
-    return math.log((N - df) / df) if df > 0 and df < N else 0
-
-# Normalization Functions:
-def norm_n(vector):
-    return vector
-
-def norm_c(vector):
-    """ Cosine normalization: normalize the vector using its magnitude """
-    norm_val = np.linalg.norm(vector)
-    return vector / norm_val if norm_val > 0 else vector
-
-TF_FORMULAS = {
-    'n': tf_n,
-    'l': tf_l
-}
-
-IDF_FORMULAS = {
-    'n': idf_n,
-    't': idf_t,
-    'p': idf_p
-}
-
-NORM_FORMULAS = {
-    'n': norm_n,
-    'c': norm_c
-}
-
-
-def calculate_document_term_weights(indexmap, token_list, tf_choice='l', idf_choice='t', norm_choice='n'):
-    """
-    Calculate TF-IDF weights for terms in a document or query.
-    This is used to represent the importance of terms in a document or query.
-    """
-    term_weights = {}
-    tf_formula = TF_FORMULAS[tf_choice]
-    idf_formula = IDF_FORMULAS[idf_choice]
+def calculate_tfidf_similarity(indexmap, tokens, total_doc, tf_choice_q='l', idf_choice_q='t', tf_choice_d='l', idf_choice_d='t', norm_choice_q='n', norm_choice_d='n'):
+    tf_formula_q = TF_FORMULAS[tf_choice_q]
+    idf_formula_q = IDF_FORMULAS[idf_choice_q]
+    tf_formula_d = TF_FORMULAS[tf_choice_d]
+    idf_formula_d = IDF_FORMULAS[idf_choice_d]
+    common_tokens = set(tokens)
     
-    for token in token_list:
-        if token in term_weights:
-            continue  
-        else:
-            tf = tf_formula(count_string_occurrences(token, token_list))
-            idf = idf_formula(total_doc, len(indexmap.get(token, {})))
-            term_weights[token] = tf * idf
-    vector = np.array(list(term_weights.values()))
-    normalized_vector = NORM_FORMULAS[norm_choice](vector)
-    normalized_weights = {token: normalized_vector[i] for i, token in enumerate(term_weights)}
-
-    return normalized_weights
-
-
-def calculate_query_term_weights(query_weights, indexmap, tf_choice='l', idf_choice='t', norm_choice='n'):
-    """
-    Calculate TF-IDF weights for terms in the inverted index based on the query.
-    This is used to represent the importance of terms in documents relative to the query.
-    """
+    # Step 1: Document TF-IDF calculation
     document_weights = {}
-    tf_formula = TF_FORMULAS[tf_choice]
-    idf_formula = IDF_FORMULAS[idf_choice]
-
-    for token in query_weights:
+    for doc in range(total_doc):
+        if doc not in document_weights:
+            document_weights[doc] = {}  
+        for token in common_tokens:
+            if token not in document_weights[doc]:
+                document_weights[doc][token] = 0
+    for token in common_tokens:
         if token in indexmap:
-            # IDF for the term
-            idf = idf_formula(total_doc, len(indexmap.get(token, {})))
+            idf_d = idf_formula_d(total_doc, len(indexmap.get(token)))
+            print(token, idf_d,indexmap[token])
             for doc_id in indexmap[token]:
-                # TF for the term in the document
-                tf = tf_formula(indexmap[token][doc_id])
-                # TF-IDF weight for the term in the document
-                document_weights.setdefault(doc_id, {})
-                document_weights[doc_id][token] = tf * idf 
+                tf_d = tf_formula_d(indexmap[token][doc_id])
+                print(tf_d*idf_d)
+                if doc_id not in document_weights:
+                    document_weights[doc_id] = {}
+                document_weights[doc_id][token] = tf_d * idf_d 
+    # keep document weights with at least a token value >0
+    document_weights = {doc_id: doc_vector for doc_id, doc_vector in document_weights.items() if any(doc_vector.values())}
 
-    return document_weights
-
-
-def calculate_cosine_similarity(query_weights, document_weights):
-    """
-    Calculate cosine similarity between a query and all documents.
-    This is used to rank documents based on their relevance to the query.
-    Returns:
-        dict: A dictionary where each document is mapped to its cosine similarity score with the query.
-    """
-    similarity_scores = {}
-    query_magnitude = np.linalg.norm(list(query_weights.values()))
-
+    # Step 2: Normalize document vectors
     for doc_id, doc_vector in document_weights.items():
-        doc_magnitude = np.linalg.norm(list(doc_vector.values()))
+        vector = np.array(list(doc_vector.values()))
+        normalized_vector = NORM_FORMULAS[norm_choice_d](vector)
+        normalized_weights = {token: normalized_vector[i] for i, token in enumerate(doc_vector)}
+        document_weights[doc_id] = normalized_weights
+    # print("document weights")
+    # print(document_weights)
 
-        if doc_magnitude == 0 or query_magnitude == 0:
-            similarity_scores[doc_id] = 0
-        else:
-            common_terms = set(query_weights.keys()) & set(doc_vector.keys())
-            query_vector = np.array([query_weights[term] for term in common_terms])
-            doc_vector = np.array([doc_vector[term] for term in common_terms])
-            similarity_scores[doc_id] = np.dot(doc_vector, query_vector) / (doc_magnitude * query_magnitude)
+    # Step 3: Query TF-IDF calculation
+    query_weights = {}
+    for token in tokens:
+        if token in common_tokens:
+            tf_q = tf_formula_q(tokens.count(token))  
+            idf_q = idf_formula_q(total_doc, len(indexmap.get(token, {})))
+            query_weights[token] = tf_q * idf_q
+
+    # Step 4: Normalize query vector
+    query_vector = np.array(list(query_weights.values()))
+    for i, token in enumerate(query_weights):
+        query_vector[i] = query_vector[i] * idf_formula_q(total_doc, len(indexmap.get(token, {})))
+   
+    normalized_query_vector = NORM_FORMULAS[norm_choice_q](query_vector)
+    normalized_query_weights = {token: normalized_query_vector[i] for i, token in enumerate(query_weights)}
+    # print("query vector")
+    # print(normalized_query_vector)
+
+    # Step 5: Calculate similarity
+    return cosine_similarity(normalized_query_vector, document_weights,normalized_query_weights)
     
-    return dict(sorted(similarity_scores.items(), key=lambda item: item[1], reverse=True))
+def cosine_similarity(normalized_query_vector, document_weights,normalized_query_weights):
+    similarities = {}
+    query_vector_norm = np.linalg.norm(normalized_query_vector)
+    
+    for doc_id, doc_vector in document_weights.items():
+        doc_vector_values = np.array(list(doc_vector.values()))
+        doc_vector_norm = np.linalg.norm(doc_vector_values)
+
+        if doc_vector_values.shape != normalized_query_vector.shape:
+            doc_vector_values = np.resize(doc_vector_values, normalized_query_vector.shape)
+
+        dot_product = np.dot(doc_vector_values, normalized_query_vector)
+        cosine_similarity = dot_product / (doc_vector_norm * query_vector_norm) if doc_vector_norm and query_vector_norm else 0
+        similarities[doc_id] = cosine_similarity
+
+    return document_weights, normalized_query_weights, similarities
