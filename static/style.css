@@ -341,3 +341,8 @@ tr:hover td {
   pointer-events: none;
   /* Ensures only the button itself triggers the action */
 }
+.inline-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem; /* Spacing between controls */
+}

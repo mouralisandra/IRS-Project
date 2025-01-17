@@ -25,60 +25,60 @@
           <input type="text" id="description" name="description" placeholder="Describe your symptoms..." required>
         </div>
 
-        <!-- Dropdown for tf_choice_q -->
-        <div class="form-group">
-          <label for="tf_choice_q">Choose Query TF:</label>
-          <select id="tf_choice_q" name="tf_choice_q">
-            <option value="l">Option L</option>
-            <option value="n">Option N</option>
-          </select>
+        <!-- Query: TF, IDF, Normalization -->
+        <div class="form-group inline-group">
+          <div>
+            <label for="tf_choice_q">Query TF:</label>
+            <select id="tf_choice_q" name="tf_choice_q">
+              <option value="l">Option L</option>
+              <option value="n">Option N</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="idf_choice_q">Query IDF:</label>
+            <select id="idf_choice_q" name="idf_choice_q">
+              <option value="t">Option T</option>
+              <option value="n">Option N</option>
+              <option value="p">Option P</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="norm_choice_q">Query Normalization:</label>
+            <select id="norm_choice_q" name="norm_choice_q">
+              <option value="n">Option N</option>
+              <option value="c">Option C</option>
+            </select>
+          </div>
         </div>
 
-        <!-- Dropdown for idf_choice_q -->
-        <div class="form-group">
-          <label for="idf_choice_q">Choose Query IDF:</label>
-          <select id="idf_choice_q" name="idf_choice_q">
-            <option value="t">Option T</option>
-            <option value="n">Option N</option>
-            <option value="p">Option P</option>
-          </select>
-        </div>
+        <!-- Document: TF, IDF, Normalization -->
+        <div class="form-group inline-group">
+          <div>
+            <label for="tf_choice_d">Document TF:</label>
+            <select id="tf_choice_d" name="tf_choice_d">
+              <option value="l">Option L</option>
+              <option value="n">Option N</option>
+            </select>
+          </div>
 
-        <!-- Dropdown for tf_choice_d -->
-        <div class="form-group">
-          <label for="tf_choice_d">Choose Document TF:</label>
-          <select id="tf_choice_d" name="tf_choice_d">
-            <option value="l">Option L</option>
-            <option value="n">Option N</option>
-          </select>
-        </div>
+          <div>
+            <label for="idf_choice_d">Document IDF:</label>
+            <select id="idf_choice_d" name="idf_choice_d">
+              <option value="t">Option T</option>
+              <option value="n">Option N</option>
+              <option value="p">Option P</option>
+            </select>
+          </div>
 
-        <!-- Dropdown for idf_choice_d -->
-        <div class="form-group">
-          <label for="idf_choice_d">Choose Document IDF:</label>
-          <select id="idf_choice_d" name="idf_choice_d">
-            <option value="t">Option T</option>
-            <option value="n">Option N</option>
-            <option value="p">Option P</option>
-          </select>
-        </div>
-
-        <!-- Dropdown for norm_choice_q (Query Normalization) -->
-        <div class="form-group">
-          <label for="norm_choice_q">Choose Query Normalization:</label>
-          <select id="norm_choice_q" name="norm_choice_q">
-            <option value="n">Option N</option>
-            <option value="c">Option C</option>
-          </select>
-        </div>
-
-        <!-- Dropdown for norm_choice_d (Document Normalization) -->
-        <div class="form-group">
-          <label for="norm_choice_d">Choose Document Normalization:</label>
-          <select id="norm_choice_d" name="norm_choice_d">
-            <option value="n">Option N</option>
-            <option value="c">Option C</option>
-          </select>
+          <div>
+            <label for="norm_choice_d">Document Normalization:</label>
+            <select id="norm_choice_d" name="norm_choice_d">
+              <option value="n">Option N</option>
+              <option value="c">Option C</option>
+            </select>
+          </div>
         </div>
 
         <button type="submit" id="submitBtn"><i class="fas fa-search"></i> Find Recommendations</button>
