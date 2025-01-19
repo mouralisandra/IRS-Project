@@ -34,6 +34,7 @@ def preProcess(pattern):
     w = tokenize_without_numbers(pattern)
     w2 = removal_of_stop_words(w)
     w3 = stemming(w2)
+    # w3=[lemmatizer.lemmatize(word) for word in w3]
     return w3
 
 

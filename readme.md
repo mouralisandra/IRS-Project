@@ -4,3 +4,6 @@
 
 # Report: 
 [GitBook Link](https://chaibi.gitbook.io/mini-search-engine-project/tf-idf-weighting-and-similarity/query-weight-calculation)
+
+![Flow Preprocessing](https://github.com/anasch07/SRI-Projet/raw/main/documentation/preprocessing-and-indexing/flow-preprocessing.png)
+
