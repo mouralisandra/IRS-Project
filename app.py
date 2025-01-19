@@ -27,17 +27,17 @@ def process_user_input():
     norm_choice_q = data.get('norm_choice_q')
     norm_choice_d = data.get('norm_choice_d')
     print(tf_choice_q, idf_choice_q, tf_choice_d, idf_choice_d, norm_choice_q, norm_choice_d)
-    # corrected_query = correct_spelling(query)
+    corrected_query = correct_spelling(query)
     did_you_mean = None
     top_n=None
-    # if corrected_query != query:
-    #     did_you_mean = {
-    #         "suggestion": corrected_query,
-    #         "original": query
-    #     }
-    #     search_results_table, top_n = searchAndRank(corrected_query, n, tf_choice_q, idf_choice_q, tf_choice_d, idf_choice_d, norm_choice_q, norm_choice_d)
-    # else:
-    search_results_table, top_n = searchAndRank(query, n, tf_choice_q, idf_choice_q, tf_choice_d, idf_choice_d, norm_choice_q, norm_choice_d)
+    if corrected_query != query:
+        did_you_mean = {
+            "suggestion": corrected_query,
+            "original": query
+        }
+        search_results_table, top_n = searchAndRank(corrected_query, n, tf_choice_q, idf_choice_q, tf_choice_d, idf_choice_d, norm_choice_q, norm_choice_d)
+    else:
+        search_results_table, top_n = searchAndRank(query, n, tf_choice_q, idf_choice_q, tf_choice_d, idf_choice_d, norm_choice_q, norm_choice_d)
     print(top_n)
     return jsonify({
         "results": search_results_table,
